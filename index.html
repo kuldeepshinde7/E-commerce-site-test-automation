@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple E-commerce</title>
+    <style>
+        .product { margin: 10px; padding: 10px; border: 1px solid #ccc; }
+        #cart-section { display: none; margin-top: 20px; }
+    </style>
+    <script>
+        let cart = [];
+
+        function searchProducts() {
+            const input = document.getElementById("search-input").value.toLowerCase();
+            const products = document.querySelectorAll(".product");
+            let found = false;
+
+            products.forEach(product => {
+                const title = product.querySelector(".product-title").innerText.toLowerCase();
+                if (title.includes(input)) {
+                    product.style.display = "block";
+                    found = true;
+                } else {
+                    product.style.display = "none";
+                }
+            });
+
+            document.getElementById("no-result-message").style.display = found ? "none" : "block";
+        }
+
+        function addToCart(index) {
+            const title = document.querySelectorAll(".product-title")[index].innerText;
+            const price = parseFloat(document.querySelectorAll(".product-price")[index].innerText.replace("₹", ""));
+            cart = [{ title, price, quantity: 1 }];
+            updateCartDisplay();
+        }
+
+        function openCart() {
+            document.getElementById("cart-section").style.display = "block";
+        }
+
+        function updateQuantity() {
+            const qty = parseInt(document.querySelector(".cart-quantity").value);
+            if (cart.length > 0) {
+                cart[0].quantity = qty;
+                updateCartDisplay();
+            }
+        }
+
+        function removeFromCart() {
+            cart = [];
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            if (cart.length === 0) {
+                document.getElementById("cart-count").innerText = "0";
+                document.getElementById("cart-total").innerText = "₹0";
+                document.getElementById("cart-section").style.display = "none";
+            } else {
+                document.getElementById("cart-count").innerText = cart[0].quantity;
+                document.getElementById("cart-total").innerText = `₹${cart[0].quantity * cart[0].price}`;
+                document.getElementById("cart-section").style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h2>🛒 Simple E-commerce</h2>
+
+    <input type="text" id="search-input" placeholder="Search product...">
+    <button id="search-button" onclick="searchProducts()">Search</button>
+
+    <p id="no-result-message" style="display: none; color: red;">No results found</p>
+
+    <div id="product-list">
+        <div class="product">
+            <span class="product-title">Laptop</span><br>
+            <span class="product-price">₹50000</span><br>
+            <button class="add-to-cart" onclick="addToCart(0)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <span class="product-title">Smartphone</span><br>
+            <span class="product-price">₹20000</span><br>
+            <button class="add-to-cart" onclick="addToCart(1)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <span class="product-title">Headphones</span><br>
+            <span class="product-price">₹1500</span><br>
+            <button class="add-to-cart" onclick="addToCart(2)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <span class="product-title">Monitor</span><br>
+            <span class="product-price">₹8000</span><br>
+            <button class="add-to-cart" onclick="addToCart(3)">Add to Cart</button>
+        </div>
+    </div>
+
+    <br>
+    <button id="cart-button" onclick="openCart()">View Cart</button>
+
+    <div id="cart-section">
+        <h3>Your Cart</h3>
+        <label>Quantity:</label>
+        <input type="number" class="cart-quantity" value="1" min="1">
+        <button id="update-cart" onclick="updateQuantity()">Update</button>
+        <button class="remove-from-cart" onclick="removeFromCart()">Remove</button>
+        <p>Total Items: <span id="cart-count">0</span></p>
+        <p>Total Price: <span id="cart-total">₹0</span></p>
+    </div>
+
+</body>
+</html>
