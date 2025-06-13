@@ -54,8 +54,8 @@ This project is an automated test suite built using Selenium,Pytest and Python f
 Step 1: Clone the Repo:
 
 * bash
-* git clone https://github.com/yourusername/ecommerce-testing.git
-* cd ecommerce-testing
+* git clone https://github.com/kuldeepshinde7/E-commerce-site-test-automation.git
+* cd E-commerce-site-test-automation
 
 Step 2: Create & Activate Virtual Environment:
 * python -m venv venv
