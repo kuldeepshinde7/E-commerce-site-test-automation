@@ -9,7 +9,7 @@ This project is an automated test suite built using Selenium,Pytest and Python f
 
 
   ## 📁 Project Structure
-  ecommerce-testing/
+  Automation-testing/
   
 ├── pages/
 
